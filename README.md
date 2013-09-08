@@ -52,7 +52,8 @@ it( "should be fulfilled with 5", function ()
 	// NOTE: yourAsyncCall() returns a Promise
 
 	runs( function() {    	
-		return  yourAsyncCall().then( function (result) 
+		return yourAsyncCall()
+			.then( function (result) 
 			{
 				expect( result ).toBeEqual( 5 );
 			});
