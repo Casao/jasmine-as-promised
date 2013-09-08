@@ -61,8 +61,6 @@ it( "should be fulfilled with 5", function ()
 });
 ```
 
-Now, with Jasmine as Promised, you have a much nicer option available!
-
 You could even separate your `expect()` calls if wanted. Instead of nesting your expectations inside
 the promise handler, consider another supported approach:
 
@@ -84,16 +82,14 @@ it( "should be fulfilled with 5", function ()
 });
 ```
 
+Now, with Jasmine as Promised, you have a much nicer option available! No more need to worry about waitsFor(), etc.
+
 
 ## How to Use
 
 Once you install and set up Jasmine as Promised, you now have a second way of creating asynchronous tests, besides Jasmine's
-usual runs-waitsFor-runs style. Just return a promise: if it is fulfilled, the test expectations are checked, and if it is rejected, the test
+usual `runs(); waitsFor(); runs();` style. Just return a promise: if it is fulfilled, the test expectations are checked, and if it is rejected, the test
 fails, with the rejection reason as the error. Nice, huh?
-
-If you want to do multiple assertions in a single test, first, think carefully about whether you should instead break
-that test up into multiple tests. Once you've decided that yes, you're really OK with multiple assertions, then you'll
-want to use a promise-aggregator function, like [Q][]'s [`Q.all`][Q.all]:
 
 Jasmine as Promised works with all Jasmine interfaces: BDD, TDD, QUnit, whatever. It hooks in at such a low level, the
 interfaces don't even get involved.
