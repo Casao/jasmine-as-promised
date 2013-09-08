@@ -53,10 +53,10 @@ it( "should be fulfilled with 5", function ()
 
 	runs( function() {    	
 		return yourAsyncCall()
-			.then( function (result) 
-			{
+			    .then( function (result) 
+			    {
 				expect( result ).toBeEqual( 5 );
-			});
+			    });
 	});
 });
 ```
