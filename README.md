@@ -2,11 +2,6 @@
 
 Extension of Jasmine Spec::runs() to support Promises and automagically wait for the promise to resolve or reject.
 
-<a href="http://promises-aplus.github.com/promises-spec">
-    <img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png"
-         align="right" alt="Promises/A+ logo" />
-</a>
-
 # Promise-Returning Tests for Mocha
 
 Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` to force the test runner to pause
