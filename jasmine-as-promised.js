@@ -1,5 +1,8 @@
 /**
- * Runtime extension to Jasmine Spec functionality: to support Promises
+ * Jasmine-As-Promised
+ *
+ * Based on Domenic's promise solution for Mocha, here are runtime extensions to support
+ * Promises for the Jasmine Spec functionality.
  *
  * Currently the Spec::runs(<fn>) function will execute the target function sychronously.
  * If the developer has an async function, then the developer must subsequently invoke waitsFor()
@@ -42,6 +45,7 @@
  * @author Domenic Denicola
  *
  * @website https://github.com/Mindspace/jasmine-as-promised
+ * @website https://github.com/domenic/mocha-as-promised
  *
  * @date September, 2013
  *
