@@ -63,6 +63,28 @@ it( "should be fulfilled with 5", function ()
 
 Now, with Jasmine as Promised, you have a much nicer option available!
 
+You could even separate your `expect()` calls if wanted. Instead of nesting your expectations inside
+the promise handler, consider another supported approach:
+
+```js
+it( "should be fulfilled with 5", function () 
+{
+	// NOTE: yourAsyncCall() returns a Promise
+
+	runs( 
+		function() 
+		{    	
+			return yourAsyncCall();
+		},
+		function checkExpectations( result ) 
+		{
+			expect( result ).toBeEqual( 5 );
+		}
+	);
+});
+```
+
+
 ## How to Use
 
 Once you install and set up Jasmine as Promised, you now have a second way of creating asynchronous tests, besides Jasmine's
