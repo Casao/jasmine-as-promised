@@ -1,7 +1,7 @@
 # Promise-Returning Tests for Jasmine
 
 So you really like [Jasmine](). But you also really like [promises](). And you'd like to see 
-support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised]() and others.
+support in [Jasmine]() for the promise-returning test style; similar to the great work by Domenic Denicola for the [Mocha as Promised](https://github.com/domenic/mocha-as-promised) and others.
 
 This library provides an extension of the Jasmine Spec::runs() to support Promises 
 and will auto-magically wait for the promise to resolve or reject before continuing with subsequent unit tests.
@@ -9,17 +9,17 @@ and will auto-magically wait for the promise to resolve or reject before continu
 ## The Old Way
 
 Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` 
-to force the test runner to pause the tests in order to wait for the async response. 
+to force the test runner to pause the tests in order to wait for the async response. This traditional approach is verbose
+and error-prone when create many tests for async APIs.
 
-Here is a sample of 
-code constructed in the `old way` where the `authenticator.login()` is asynchronouse and returns a promise instance:
+Here is a sample of code constructed in the tradition, *old way* where the `authenticator.login()` 
+is asynchronouse and returns a promise instance:
 
 ```js
 it( "should be fulfilled with 5", function () {
 	var ready  = false,
 		result;
 		
-		// Run the async yourAsyncCall() method...					
 		runs( function() 
 		{
 			authenticator
@@ -53,21 +53,22 @@ it( "should be fulfilled with 5", function () {
 
 ## The New, Better Solution
 
-
-
-Consider the simplicity of code achieved now when your unit tests return Promises:
+With Jasmine-As-Promised and APIs that return promises, consider the code tersity and simplicity that can be realized
+when your unit tests return Promises:
 
 ```js
 it( "should be fulfilled with 5", function () 
 {
 	// NOTE: yourAsyncCall() returns a Promise
 
-	runs( function() {    	
-		return yourAsyncCall()
-			      .then( function (result) 
-			      {
-				      expect( result ).toBeEqual( 5 );
-			      });
+	runs( function() 
+	{    	
+		return authenticator
+			.login("Domenic Denicola", "awesome" )
+			.then( function (result) 
+			{
+				expect( result ).toBeEqual( "so true" );
+			});
 	});
 });
 ```
@@ -83,11 +84,11 @@ it( "should be fulfilled with 5", function ()
 	runs( 
 		function() 
 		{    	
-			return yourAsyncCall();
+			return authenticator.login("Domenic Denicola", "awesome" );
 		},
 		function checkExpectations( result ) 
 		{
-			expect( result ).toBeEqual( 5 );
+			expect( result ).toBeEqual( "so true" );
 		}
 	);
 });
