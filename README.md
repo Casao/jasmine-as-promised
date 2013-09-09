@@ -101,7 +101,7 @@ With this *new* approach developers no longer need to worry about `waitsFor()`, 
 ## How to Use
 
 Once you install and set up Jasmine as Promised, you now have a second way of creating asynchronous tests, besides Jasmine's
-usual `runs(); waitsFor(); runs();` style. Just return a promise: if it is fulfilled, the test expectations are checked, and if it is rejected, the test
+usual `runs(); waitsFor(); runs();` style. Just return a promise. When the promise is resolved the test expectations are checked and if it is rejected the test
 fails, with the rejection reason as the error. Nice, huh?
 
 Jasmine as Promised works with all Jasmine interfaces: BDD, TDD, QUnit, whatever. It hooks in at such a low level, the
