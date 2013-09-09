@@ -82,7 +82,7 @@ it( "should be fulfilled with 5", function ()
 });
 ```
 
-Now, with Jasmine as Promised, you have a much nicer option available! No more need to worry about waitsFor(), etc.
+Now, with Jasmine as Promised, you have a much two (2) much nicer options available! No more need to worry about waitsFor(), etc.
 
 
 ## How to Use

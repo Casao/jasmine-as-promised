@@ -126,7 +126,7 @@
             /**
              * Assert value is a Promise instance
              */
-                isPromise = function( x )
+            isPromise = function( x )
             {
                 return typeof x === "object" && x !== null && typeof x.then === "function";
             },
@@ -134,7 +134,7 @@
             /**
              * Assert value is NOT undefined
              */
-                isDefined = function( value )
+            isDefined = function( value )
             {
                 return typeof value != 'undefined';
             };
