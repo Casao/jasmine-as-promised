@@ -1,11 +1,16 @@
 # Promise-Returning Tests for Jasmine
 
-Extension of Jasmine Spec::runs() to support Promises and automagically wait for the promise to resolve or reject.
+So you really like [Jasmine](). But you also really like [promises](). And you'd like to see 
+support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised]() and others.
+
+This library provides an extension of the Jasmine Spec::runs() to support Promises 
+and will auto-magically wait for the promise to resolve or reject before continuing with subsequent unit tests.
 
 ## The Old Way
 
-Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` to force the test runner to pause
-the tests in order to wait for the async response. like this:
+Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` 
+to force the test runner to pause the tests in order to wait for the async response. Here is a sample of 
+code constructed in the `old way` where the `authenticator.login()` is asynchronouse and returns a promise instance:
 
 ```js
 it( "should be fulfilled with 5", function () {
@@ -14,7 +19,9 @@ it( "should be fulfilled with 5", function () {
 		
 		// Run the async yourAsyncCall() method...					
 		runs( function() {
-			yourAsyncCall().then(
+			authenticator
+			    .login()
+			    .then(
 				function onResponse( data )
 				{
 					result = data;
@@ -24,7 +31,7 @@ it( "should be fulfilled with 5", function () {
 				{
 					ready  = true;		// continue test runner
 				}
-			);
+			    );
 		});
 
 		// Pause test runner until timeout or yourAsyncCall() responds		
@@ -43,8 +50,7 @@ it( "should be fulfilled with 5", function () {
 
 ## The New, Better Solution
 
-So you really like [Jasmine](). But you also really like [promises](). And you'd like to see
-support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised]() and others.
+
 
 Consider the simplicity of code achieved now when your unit tests return Promises:
 
