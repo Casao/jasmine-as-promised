@@ -2,6 +2,8 @@
 
 Extension of Jasmine Spec::runs() to support Promises and automagically wait for the promise to resolve or reject.
 
+## The Old Way
+
 Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` to force the test runner to pause
 the tests in order to wait for the async response. like this:
 
@@ -39,7 +41,7 @@ it( "should be fulfilled with 5", function () {
 });
 ```
 
-## Better Solution
+## The New, Better Solution
 
 So you really like [Jasmine](). But you also really like [promises](). And you'd like to see
 support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised]() and others.
