@@ -16,24 +16,24 @@ Here is a sample of code constructed in the tradition, *old way* where the `auth
 is asynchronouse and returns a promise instance:
 
 ```js
-it( "should be fulfilled with 5", function () {
+it( "should be authorized for valid logins", function () {
 	var ready  = false,
 		result;
 		
 		runs( function() 
 		{
 			authenticator
-			    .login()
+			    .login("Domenic Denicola", "awesome")
 			    .then(
-				function onResponse( data )
-				{
-					result = data;
-					ready  = true;		// continue test runner
-				},
-				function onError( fault )
-				{
-					ready  = true;		// continue test runner
-				}
+			    	function onResponse( data )
+			    	{
+			    		result = data;
+			    		ready  = true;		// continue test runner
+			    	},
+			    	function onError( fault )
+			    	{
+			    		ready  = true;		// continue test runner
+			    	}
 			    );
 		});
 
@@ -46,7 +46,7 @@ it( "should be fulfilled with 5", function () {
 		// Run the code that checks the expectations…
 		
 		runs( function() {
-			expect( result ).toBeEqual( 5 );
+			expect( result ).toBeEqual( "so true" );
 		});	    
 });
 ```
@@ -57,7 +57,7 @@ With Jasmine-As-Promised and APIs that return promises, consider the code tersit
 when your unit tests return Promises:
 
 ```js
-it( "should be fulfilled with 5", function () 
+it( "should be authorized for valid logins", function () 
 {
 	// NOTE: yourAsyncCall() returns a Promise
 
@@ -77,7 +77,7 @@ You could even separate your `expect()` calls if wanted. Instead of nesting your
 the promise handler, consider another supported approach:
 
 ```js
-it( "should be fulfilled with 5", function () 
+it( "should be authorized for valid logins", function () 
 {
 	// NOTE: yourAsyncCall() returns a Promise
 
