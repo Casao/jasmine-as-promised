@@ -1,9 +1,9 @@
 # Promise-Returning Tests for Jasmine
 
-So you really like [Jasmine](). But you also really like [promises](). And you'd like to see 
-support in [Jasmine]() for the promise-returning test style; similar to the great work by Domenic Denicola for the [Mocha as Promised](https://github.com/domenic/mocha-as-promised) and others.
+So you really like [Jasmine](https://github.com/pivotal/jasmine). But you also really like [promises](). And you'd like to see 
+support in [Jasmine](https://github.com/pivotal/jasmine) for the promise-returning test style; similar to the great work by Domenic Denicola for the [Mocha as Promised](https://github.com/domenic/mocha-as-promised) and others.
 
-This library provides an extension of the Jasmine Spec::runs() to support Promises 
+This library provides an extension of the Jasmine `Spec::runs()` to support Promises 
 and will auto-magically wait for the promise to resolve or reject before continuing with subsequent unit tests.
 
 ## The Old Way
@@ -122,7 +122,7 @@ You can of course put this code in a common test fixture file; for an example, s
 
 ### AMD
 
-Jasmine as Promised supports being used as an [AMD][amd] module, registering itself anonymously. So, assuming you have
+Jasmine as Promised supports being used as an [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) module, registering itself anonymously. So, assuming you have
 configured your loader to map the Jasmine and Jasmine as Promised files to the respective module IDs `"jasmine"` and
 `"jasmine-as-promised"`, you can use them as follows:
 
@@ -174,6 +174,6 @@ Don't forget that you must also install the `Jasmine` library (as show above in 
 
 ## How Does This Work!?
 
-This is a reasonable hack.
+While this approach using the interceptor or *head hook* approach, it should be note that this is hack... albeit a reasonable one.
 
-Note that Jasmine as Promised  just overrides the `Jasmine.Spec.prototype.runs` method.
+Note that Jasmine-as-Promised just overrides the `Jasmine.Spec.prototype.runs` method; check the source for more details.
