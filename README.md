@@ -1,7 +1,7 @@
 # Promise-Returning Tests for Jasmine
 
 So you really like [Jasmine](https://github.com/pivotal/jasmine). But you also really like [promises](). And you'd like to see 
-support in [Jasmine](https://github.com/pivotal/jasmine) for the promise-returning test style; similar to the great work by Domenic Denicola for the [Mocha as Promised](https://github.com/domenic/mocha-as-promised) and others.
+support in [Jasmine](https://github.com/pivotal/jasmine) for the promise-returning test style; similar to the great work by [Domenic Denicola](https://github.com/domenic) for the [Mocha as Promised](https://github.com/domenic/mocha-as-promised) and others.
 
 This library provides an extension of the Jasmine `Spec::runs()` to support Promises 
 and will auto-magically wait for the promise to resolve or reject before continuing with subsequent unit tests.
@@ -100,7 +100,7 @@ With this *new* approach developers no longer need to worry about `waitsFor()`, 
 
 ## How to Use
 
-Once you install and set up Jasmine as Promised, you now have a second way of creating asynchronous tests, besides Jasmine's
+Once you install and set up **Jasmine-as-Promised**, you now have a second way of creating asynchronous tests, besides Jasmine's
 usual `runs(); waitsFor(); runs();` style. Just return a promise. When the promise is resolved the test expectations are checked and if it is rejected the test
 fails, with the rejection reason as the error. Nice, huh?
 
