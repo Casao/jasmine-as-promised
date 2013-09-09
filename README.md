@@ -42,7 +42,7 @@ it( "should be fulfilled with 5", function () {
 ## Better Solution
 
 So you really like [Jasmine](). But you also really like [promises](). And you'd like to see
-support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised][] and others.
+support in [Jasmine]() for the promise-returning test style found in [Mocha as Promised]() and others.
 
 Consider the simplicity of code achieved now when your unit tests return Promises:
 
@@ -53,10 +53,10 @@ it( "should be fulfilled with 5", function ()
 
 	runs( function() {    	
 		return yourAsyncCall()
-			    .then( function (result) 
-			    {
-				    expect( result ).toBeEqual( 5 );
-			    });
+			      .then( function (result) 
+			      {
+				      expect( result ).toBeEqual( 5 );
+			      });
 	});
 });
 ```
