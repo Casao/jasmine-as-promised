@@ -48,7 +48,7 @@ it( "should respond successfully for valid authors", function () {
 		
 		runs( function() 
 		{
-			expect( result.status  ).toBeEqual( 1 );
+			expect( result.valid ).toBeEqual( 1 );
 			expect( result.level ).toBeEqual( "awesome" );
 		});	    
 });
