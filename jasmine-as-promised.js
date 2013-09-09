@@ -16,7 +16,7 @@
  *    it( "invalid password returns failed login() response", inject( function( authDelegate )
  *    {
  *        var userName  = "ThomasBurleson",
- *            password  = "",
+ *            password  = "validPassword",
  *            response  = null;
  *
  *        // Perform Live, async call and test/expect results...
@@ -25,15 +25,9 @@
  *        {
  *            return authDelegate
  *                        .login( userName,  password )
- *                        .then(
- *                            function( response ) {
- *
- *                            },
- *                            function( fault )
- *                            {
- *                                expect( response ).toBe( false );
- *                            }
- *                        );
+ *                        .then( function( response ) {
+ *                            expect( response ).toBe( false );
+ *                        });
  *        });
  *
  *    }));
