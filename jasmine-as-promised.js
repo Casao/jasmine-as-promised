@@ -10,10 +10,12 @@
  *
  * If the <fn> target function returns a promise, this extension silently performs all the setup
  * required to pause Spec tests until the function resolves/rejects or times out.
+ * 
+ * Consider the scenario below where authenticator.login() is an async function that returns a promise:
  *
  * <pre>
  *
- *    it( "invalid password returns failed login() response", inject( function( authDelegate )
+ *    it( "invalid password returns failed login() response", inject( function( authenticator )
  *    {
  *        var userName  = "ThomasBurleson",
  *            password  = "validPassword",
@@ -23,7 +25,7 @@
  *
  *        runs( function()
  *        {
- *            return authDelegate
+ *            return authenticator
  *                        .login( userName,  password )
  *                        .then( function( response ) {
  *                            expect( response ).toBe( false );
