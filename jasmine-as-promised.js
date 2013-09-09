@@ -4,7 +4,7 @@
  * Based on Domenic's promise solution for Mocha, here are runtime extensions to support
  * Promises for the Jasmine Spec functionality.
  *
- * Currently the Spec::runs(<fn>) function will execute the target function sychronously.
+ * Currently the Spec::runs(<fn>) function will execute the target function synchronously.
  * If the developer has an async function, then the developer must subsequently invoke waitsFor()
  * to watch a latch variable before further tests are performed.
  *
