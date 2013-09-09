@@ -122,7 +122,7 @@ You can of course put this code in a common test fixture file; for an example, s
 
 ### AMD
 
-Jasmine as Promised supports being used as an [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) module, registering itself anonymously. So, assuming you have
+**Jasmine-as-Promised** supports being used as an [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) module, registering itself anonymously. So, assuming you have
 configured your loader to map the Jasmine and Jasmine as Promised files to the respective module IDs `"jasmine"` and
 `"jasmine-as-promised"`, you can use them as follows:
 
@@ -137,7 +137,7 @@ define(function (require, exports, module) {
 
 ### `<script>` tag
 
-If you include Jasmine as Promised directly with a `<script>` tag, after the one for Jasmine itself, then it will
+If you include **Jasmine-as-Promised** directly with a `<script>` tag, after the one for Jasmine itself, then it will
 automatically plug in to Jasmine and be ready for use:
 
 ```html
@@ -150,11 +150,11 @@ automatically plug in to Jasmine and be ready for use:
 ### Node, the Advanced Version
 
 The `require("jasmine-as-promised")()` above tries to detect which instance of Jasmine is being used automatically. This
-way, Jasmine as Promised can plug into either the local Jasmine instance installed into your project, or into the global
+way, **Jasmine-as-Promised** can plug into either the local Jasmine instance installed into your project, or into the global
 Jasmine instance if you're running your tests using the globally-installed command-line runner.
 
 In some cases, if you're doing something weird, this can fall down. In these cases, you can pass the Jasmine instance into
-the Jasmine as Promised function. For example, if you somehow had your Jasmine module as a property of the `foo` module,
+into the **Jasmine-as-Promised** function. For example, if you somehow had your Jasmine module as a property of the `foo` module,
 instead of it being found in the usual npm directory structures, you would do
 
 ```js
@@ -175,5 +175,4 @@ Don't forget that you must also install the `Jasmine` library (as show above in 
 ## How Does This Work!?
 
 While this approach using the interceptor or *head hook* approach, it should be note that this is hack... albeit a reasonable one.
-
-Note that Jasmine-as-Promised just overrides the `Jasmine.Spec.prototype.runs` method; check the source for more details.
+Note that **Jasmine-as-Promised** just overrides the `Jasmine.Spec.prototype.runs` method; check the source for more details.
