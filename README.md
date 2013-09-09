@@ -9,7 +9,9 @@ and will auto-magically wait for the promise to resolve or reject before continu
 ## The Old Way
 
 Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` 
-to force the test runner to pause the tests in order to wait for the async response. Here is a sample of 
+to force the test runner to pause the tests in order to wait for the async response. 
+
+Here is a sample of 
 code constructed in the `old way` where the `authenticator.login()` is asynchronouse and returns a promise instance:
 
 ```js
@@ -18,7 +20,8 @@ it( "should be fulfilled with 5", function () {
 		result;
 		
 		// Run the async yourAsyncCall() method...					
-		runs( function() {
+		runs( function() 
+		{
 			authenticator
 			    .login()
 			    .then(
