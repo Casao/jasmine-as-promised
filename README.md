@@ -16,14 +16,14 @@ Here is a sample of code constructed in the tradition, *old way* where the `auth
 is asynchronouse and returns a promise instance:
 
 ```js
-it( "should respond successfully for valid users", function () {
+it( "should respond successfully for valid authors", function () {
 	var ready  = false,
 		result;
 		
 		runs( function() 
 		{
-			authenticator
-			    .validate("Domenic Denicola", "awesome")
+			authors
+			    .loadStatus("Domenic Denicola")
 			    .then(
 			    	function onResponse( data )
 			    	{
@@ -38,15 +38,18 @@ it( "should respond successfully for valid users", function () {
 		});
 
 		// Pause test runner until timeout or yourAsyncCall() responds		
-		waitsFor( function() {
+		waitsFor( function() 
+		{
 			return result;
 		});
 		
 		
 		// Run the code that checks the expectations…
 		
-		runs( function() {
-			expect( result ).toBeEqual( "so true" );
+		runs( function() 
+		{
+			expect( result.status  ).toBeEqual( 1 );
+			expect( result.level ).toBeEqual( "awesome" );
 		});	    
 });
 ```
@@ -57,15 +60,15 @@ With Jasmine-As-Promised and APIs that return promises, consider the code tersit
 when your unit tests return Promises:
 
 ```js
-it( "should be respond for valid users", function () 
+it( "should be respond for valid authors", function () 
 {
 	runs( function() 
 	{    	
 		return authenticator
-			.validate("Domenic Denicola", "awesome" )
+			.validate("Domenic Denicola" )
 			.then( function (result) 
 			{
-				expect( result ).toBeEqual( "so true" );
+				expect( result.level ).toBeEqual( "awesome" );
 			});
 	});
 });
@@ -75,16 +78,16 @@ You could even separate your `expect()` calls if wanted. Instead of nesting your
 the promise handler, consider another supported approach:
 
 ```js
-it( "should respond successfully for valid users", function () 
+it( "should respond successfully for valid authors", function () 
 {
 	runs( 
 		function() 
 		{    	
-			return authenticator.validate("Domenic Denicola", "awesome" );
+			return authenticator.validate("Domenic Denicola" );
 		},
 		function checkExpectations( result ) 
 		{
-			expect( result ).toBeEqual( "so true" );
+			expect( result.level ).toBeEqual( "awesome" );
 		}
 	);
 });
