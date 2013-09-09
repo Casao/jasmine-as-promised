@@ -16,7 +16,7 @@ Here is a sample of code constructed in the tradition, *old way* where the `auth
 is asynchronouse and returns a promise instance:
 
 ```js
-it( "should be respond for valid users", function () {
+it( "should respond successfully for valid users", function () {
 	var ready  = false,
 		result;
 		
@@ -75,7 +75,7 @@ You could even separate your `expect()` calls if wanted. Instead of nesting your
 the promise handler, consider another supported approach:
 
 ```js
-it( "should be respond for valid users", function () 
+it( "should respond successfully for valid users", function () 
 {
 	runs( 
 		function() 
