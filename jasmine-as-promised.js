@@ -118,103 +118,129 @@
         jasmineAsPromised(jasmine);
     }
 
-})((function() {
-    "use strict";
+})((function(window) {
+        "use strict";
 
-    var duckPunchedAlready = false,
+        var duckPunchedAlready = false,
 
-        /**
-         * Assert value is a Promise instance
-         */
-        isPromise = function( x )
+            /**
+             * Assert value is a Promise instance
+             */
+                isPromise = function( x )
+            {
+                return typeof x === "object" && x !== null && typeof x.then === "function";
+            },
+
+            /**
+             * Assert value is NOT undefined
+             */
+                isDefined = function( value )
+            {
+                return typeof value != 'undefined';
+            };
+
+
+        return function jasmineAsPromised(jasmine)
         {
-            return typeof x === "object" && x !== null && typeof x.then === "function";
-        },
+            if ( duckPunchedAlready )    { return; }
+            if ( !isDefined(jasmine) )   { return; }
 
-        /**
-         * Assert value is NOT undefined
-         */
-        isDefined = function( value )
-        {
-            return typeof value != 'undefined';
+            duckPunchedAlready = true;
+
+            var response = null,
+                runs     = jasmine.Spec.prototype.runs,
+                waitsFor = jasmine.Spec.prototype.waitsFor,
+
+                /**
+                 * runs() Interceptor to support promise arguments (instead of functions())
+                 *
+                 * @param target Function or Promise instance
+                 * @param timeout Optional #mSecs before the waitsFor() timesout
+                 */
+                interceptor = function ( runFn, expectFn, timeOut )
+                {
+                    var result         = false,
+                        onReleaseWait  = function( data )
+                        {
+                            response = data;
+
+                            // Update to `true` when the promise resolves/rejects
+
+                            return result = true;
+                        };
+
+
+                    // (1) Perform the async all; which MUST return a promise
+
+                    runs.call( this, function()
+                    {
+                        var retVal = runFn.call();
+
+                        if ( isPromise(retVal) )
+                        {
+                            retVal.then( onReleaseWait, onReleaseWait );
+
+                        } else {
+
+                            // Immediately release the watcher...
+                            onReleaseWait( retVal );
+                        }
+                    });
+
+
+                    // (2) Pauses until async action responds
+
+                    waitsFor.call( this, function()
+                    {
+                        // Waits until `true`
+                        return result;
+
+                    }, timeOut );
+
+
+                    if ( isDefined( expectFn ) )
+                    {
+                        console.debug( expectFn.length );
+
+                        runs.call( this, function() {
+
+                            // (3) Finally check the `expected`s
+                            expectFn.apply(
+                                this,
+                                expectFn.length == 1 ? [ response ] : [ ]
+                            );
+
+                        });
+
+                    }
+                };
+
+            // Add toString() method for wrapper
+            // NOTE: this does not `publish` the promise interceptor
+
+            interceptor.toString = function ()
+            {
+                return runs.toString();
+            }
+
+
+            // Inject interceptor and replace the original runs() feature...
+
+            jasmine.Spec.prototype.runs = interceptor;
+
+
+            // Intercept global to support expectFn arguments
+
+            if ( isDefined(window) )
+            {
+                window.runs = function( runFn, expectFn, timeOut )
+                {
+                    var context = jasmine.getEnv().currentSpec;
+                    runs.apply( context, [ runFn, expectFn, timeOut ]);
+                };
+            }
+
         };
 
 
-    return function jasmineAsPromised(jasmine)
-    {
-        if ( duckPunchedAlready )    { return; }
-        if ( !isDefined(jasmine) )   { return; }
-
-        duckPunchedAlready = true;
-
-        var runs     = jasmine.Spec.prototype.runs,
-            waitsFor = jasmine.Spec.prototype.waitsFor,
-
-            /**
-             * runs() Interceptor to support promise arguments (instead of functions())
-             *
-             * @param target Function or Promise instance
-             * @param timeout Optional #mSecs before the waitsFor() timesout
-             */
-            interceptor = function ( runFn, expectFn, timeOut )
-            {
-                var result         = false,
-                    onReleaseWait  = function()
-                    {
-                        // Update to `true` when the promise resolves/rejects
-                        return result = true;
-                    };
-
-
-                // (1) Perform the async all; which MUST return a promise
-
-                runs.call( this, function()
-                {
-                    var retVal = runFn.call();
-
-                    if ( isPromise(retVal) )
-                    {
-                        retVal.then( onReleaseWait, onReleaseWait );
-
-                    } else {
-
-                        // Immediately release the watcher...
-                        onReleaseWait();
-                    }
-                });
-
-
-                // (2) Pauses until async action responds
-
-                waitsFor.call( this, function()
-                {
-                    // Waits until `true`
-                    return result;
-
-                }, timeOut );
-
-
-                if ( isDefined( expectFn ) )
-                {
-                    // (3) Finally check the `expected`s
-                    runs.call( this, expectFn );
-                }
-            };
-
-        // Add toString() method for wrapper
-        // NOTE: this does not `publish` the promise interceptor
-
-        interceptor.toString = function ()
-        {
-            return runs.toString();
-        }
-
-
-        // Inject interceptor and replace the original runs() feature...
-
-        jasmine.Spec.prototype.runs = interceptor;
-
-    };
-
-
-})());
+    })(window));
