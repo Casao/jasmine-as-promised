@@ -196,8 +196,6 @@
 
                     if ( isDefined( expectFn ) )
                     {
-                        console.debug( expectFn.length );
-
                         runs.call( this, function() {
 
                             // (3) Finally check the `expected`s
