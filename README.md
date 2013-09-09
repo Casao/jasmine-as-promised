@@ -67,6 +67,7 @@ it( "should be respond for valid authors", function ()
 			.validate("Domenic Denicola" )
 			.then( function (result) 
 			{
+				expect( result.valid ).toBeEqual( 1 );
 				expect( result.level ).toBeEqual( "awesome" );
 			});
 	});
