@@ -9,10 +9,7 @@ and will auto-magically wait for the promise to resolve or reject before continu
 ## The Old Way
 
 Until now you've been making do with manual solutions that explicity use `runs()` and `waitsFor()` 
-to force the test runner to pause the tests in order to wait for the async response. This traditional approach is verbose
-and error-prone when create many tests for async APIs.
-
-Here is a sample of code constructed in the tradition, *old way* where the `authors.validate()` 
+to force the test runner to pause the tests in order to wait for the async response. Here is a sample of code constructed in the tradition, *old way* where the `authors.validate()` 
 is asynchronous and returns a promise instance:
 
 ```js
@@ -53,6 +50,8 @@ it( "should respond successfully for valid authors", function () {
 		});	    
 });
 ```
+
+Developers will immediately note that this traditional approach is verbose and error-prone when developers are need to create many tests for their async APIs.
 
 ## The New, Better Solution
 
