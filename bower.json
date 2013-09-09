@@ -1,0 +1,8 @@
+{
+    "name": "jasmine-as-promised",
+    "version": "0.0.2",
+    "main": "./jasmine-as-promised.js",
+    "dependencies": {
+        "jasmine": "1.3.1"
+    }
+}
