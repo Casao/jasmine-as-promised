@@ -94,8 +94,9 @@ it( "should respond successfully for valid authors", function ()
 });
 ```
 
-Now, with Jasmine as Promised, you have a much two (2) much nicer options available! No more need to worry about waitsFor(), etc.
+With this *new* approach developers no longer need to worry about `waitsFor()`, latch methods, etc.
 
+Now, with Jasmine as Promised, you have a much two (2) much nicer, easily applied options available! 
 
 ## How to Use
 
