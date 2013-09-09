@@ -148,6 +148,17 @@ instead of it being found in the usual npm directory structures, you would do
 require("jasmine-as-promised")(require("foo").MyJasmine);
 ```
 
+### Bower, the Package Manager
+
+Now you can use `Bower` (the package manager for the web) to get the most recent released version of the library installed in your project-relative `bower_components` directory.
+
+```js
+bower install jasmine
+bower install jasmine-as-promised
+```
+
+Don't forget that you must also install the `Jasmine` library (as show above in the console commands).
+
 ## How Does This Work!?
 
 This is a reasonable hack.
