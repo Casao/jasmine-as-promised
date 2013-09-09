@@ -12,7 +12,7 @@ Until now you've been making do with manual solutions that explicity use `runs()
 to force the test runner to pause the tests in order to wait for the async response. This traditional approach is verbose
 and error-prone when create many tests for async APIs.
 
-Here is a sample of code constructed in the tradition, *old way* where the `authenticator.login()` 
+Here is a sample of code constructed in the tradition, *old way* where the `authors.login()` 
 is asynchronouse and returns a promise instance:
 
 ```js
@@ -87,6 +87,7 @@ it( "should respond successfully for valid authors", function ()
 		},
 		function checkExpectations( result ) 
 		{
+			expect( result.valid ).toBeEqual( 1 );
 			expect( result.level ).toBeEqual( "awesome" );
 		}
 	);
