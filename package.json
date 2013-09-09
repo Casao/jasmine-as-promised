@@ -19,7 +19,7 @@
     "version": "0.0.2",
     "repository": {
         "type": "git",
-        "url": "TBD"
+        "url": "https://github.com/Mindspace/jasmine-as-promised"
     },
     "devDependencies": {
         "jasmine": "~1.3.1"
