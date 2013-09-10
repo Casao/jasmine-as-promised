@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+    <!--
+        Configure dynamic test modules. To properly setup (may require `sudo`):
+
+        open Terminal
+        cd  <jasmine-as-promised>/test
+        npm install jasmine-node
+        npm install q
+    -->
+
+<head>
+    <title>Jasmine as Promised Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./node_modules/jasmine-node/node_modules/jasmine-reporters/ext/jasmine.css" />
+</head>
+
+<body>
+
+    <script type="text/javascript" src="./node_modules/q/q.js"></script>
+    <script type="text/javascript" src="./node_modules/jasmine-node/node_modules/jasmine-reporters/ext/jasmine.js"></script>
+    <script type="text/javascript" src="./node_modules/jasmine-node/node_modules/jasmine-reporters/ext/jasmine-html.js"></script>
+
+    <script type="text/javascript" src="../jasmine-as-promised.js"></script>
+
+
+    <script>
+    (function( jasmine ) {
+        "use strict";
+
+        var jasmineEnv       = null,
+            configureJasmine = function ()
+            {
+                var htmlReporter = new jasmine.HtmlReporter(),
+                        jasmineEnv   = jasmine.getEnv(),
+                        filterFn     = function (spec)
+                        {
+                            return htmlReporter.specFilter(spec);
+                        };
+
+                jasmineEnv.VERBOSE        = true;
+                jasmineEnv.updateInterval = 1000;
+                jasmineEnv.specFilter     = filterFn;
+                jasmineEnv.addReporter(htmlReporter);
+
+                return jasmineEnv;
+            };
+
+
+        // ****************************************************
+        // Prepare the onLoad interceptor
+        // ****************************************************
+
+        /**
+         * Head hook our window `onload` handler to start the bootstrap...
+         */
+        window.onload = (function( handler )
+        {
+            var interceptor = function()
+                {
+                    if ( handler ) handler();
+                    startTests();
+                };
+
+            jasmineEnv = configureJasmine( jasmine);
+            return interceptor;
+
+        })( window.onload );
+
+
+        // ****************************************************
+        // Unit Tests
+        // ****************************************************
+
+        function startTests ()
+        {
+            describe( "A simple browser Promise test", function ()
+            {
+                it("should pass", function ()
+                {
+                    runs( function()
+                    {
+                        return Q.resolve(5)
+                                .then( function(data)
+                                {
+                                    expect( data).toBe( 5 );
+                                });
+                    })
+                });
+
+                it("should fail", function ()
+                {
+                    runs( function()
+                    {
+                        return Q.reject(new Error("good, it failed!"))
+                                .catch( function( reason ){
+                                    expect( reason ).toBeDefined();
+                                });
+
+                    })
+                });
+            });
+        }
+
+    }( jasmine ));
+    </script>
+
+</body>
+</html>
