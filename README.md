@@ -189,7 +189,7 @@ Now you can use `Bower` (the package manager for the web) to get the most recent
 bower install jasmine-as-promised
 ```
 
-And Bower will also auto-install the `Jasmine` library for you; as part of this libraries install.
+And Bower will also auto-install the `Jasmine` library for you; as part of this library install.
 
 ## How Does This Work!?
 
