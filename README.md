@@ -186,7 +186,6 @@ require("jasmine-as-promised")(require("foo").MyJasmine);
 Now you can use `Bower` (the package manager for the web) to get the most recent released version of the library installed in your project-relative `bower_components` directory.
 
 ```js
-bower install jasmine
 bower install jasmine-as-promised
 ```
 
