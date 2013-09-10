@@ -107,6 +107,26 @@ fails, with the rejection reason as the error. Nice, huh?
 Jasmine as Promised works with all Jasmine interfaces: BDD, TDD, QUnit, whatever. It hooks in at such a low level, the
 interfaces don't even get involved.
 
+
+## This is NOT Jasmine-Node
+
+[Jasmine-Node](https://github.com/mhevery/jasmine-node) is a project that integrates the Jasmine Spec framework with NodeJS. 
+
+jasmine-node includes an alternate syntax for writing asynchronous tests. Accepting a done callback in the specification will trigger jasmine-node to run the test asynchronously waiting until the done() callback is called.
+
+```js
+var request = require('request');
+
+it("should respond with hello world", function(done) {
+  request("http://localhost:3000/hello", function(error, response, body){
+    expect(body).toEqual("hello world");
+    done();
+  });
+});
+```
+
+Notice that this `Jasmine-as-Promised` library does **not** use a done callback function argument in the `it( )` call. But developers can still use Jasmine-As-Promised with   Jasmine-Node; see the usage notes below for use with Node.
+
 ## Installation and Usage
 
 ### Node
@@ -118,7 +138,7 @@ require("jasmine-as-promised")();
 ```
 
 You can of course put this code in a common test fixture file; for an example, see
-[the Jasmine as Promised tests themselves][fixturedemo].
+[the Jasmine as Promised tests]().
 
 ### AMD
 

@@ -10,7 +10,7 @@
         "unit testing",
         "async"
     ],
-    "main": "./jasmine-as-promised.js",
+    "main": "./src/jasmine-as-promised.js",
     "homepage": "https://github.com/Mindspace/jasmine-as-promised",
     "bugs": {
         "email": "ThomasBurleson@gmail.com"
