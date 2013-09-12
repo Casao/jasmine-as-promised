@@ -153,7 +153,7 @@
                  * @param target Function or Promise instance
                  * @param timeout Optional #mSecs before the waitsFor() timesout
                  */
-                interceptor = function ( runFn, expectFn, timeOut )
+                    interceptor = function ( runFn, expectFn, timeOut )
                 {
                     var result         = false,
                         onReleaseWait  = function( data )
@@ -174,13 +174,34 @@
 
                         if ( isPromise(retVal) )
                         {
-                            retVal.then( onReleaseWait, onReleaseWait );
+                            /**
+                             * Are we using angular.mocks; where we must manually flush any
+                             * pending promise handlers ?
+                             */
+
+                            if ( isDefined( inject ))
+                            {
+                                inject( function( $browser )
+                                {
+                                    retVal.then( onReleaseWait, onReleaseWait );
+
+                                    try {
+                                        $browser.defer.flush();
+                                    } catch( e ) {  }
+
+                                });
+
+                            } else {
+
+                                retVal.then( onReleaseWait, onReleaseWait );
+                            }
 
                         } else {
 
                             // Immediately release the watcher...
                             onReleaseWait( retVal );
                         }
+
                     });
 
 
@@ -194,33 +215,18 @@
                     }, timeOut );
 
 
-                    if ( isDefined( expectFn ) )
+                    // (3) Finally check the `expected`s - OPTIONAL
+
+                    runs.call( this, function()
                     {
-                        runs.call( this, function() {
+                        if ( isDefined( expectFn ) )
+                        {
+                            // Forward promise response/fault to expectFn handler (if desired)
 
-                            // (3) Finally check the `expected`s
-                            expectFn.apply(
-                                this,
-                                expectFn.length == 1 ? [ response ] : [ ]
-                            );
-
-                        });
-
-                    }
+                            expectFn( (expectFn.length == 1) ? [ response ] : [ ] );
+                        }
+                    });
                 };
-
-            // Add toString() method for wrapper
-            // NOTE: this does not `publish` the promise interceptor
-
-            interceptor.toString = function ()
-            {
-                return runs.toString();
-            }
-
-
-            // Inject interceptor and replace the original runs() feature...
-
-            jasmine.Spec.prototype.runs = interceptor;
 
 
             // Intercept global to support expectFn arguments
@@ -230,7 +236,7 @@
                 window.runs = function( runFn, expectFn, timeOut )
                 {
                     var context = jasmine.getEnv().currentSpec;
-                    runs.apply( context, [ runFn, expectFn, timeOut ]);
+                    interceptor.apply( context, [ runFn, expectFn, timeOut ]);
                 };
             }
 
