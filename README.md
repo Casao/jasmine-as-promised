@@ -191,6 +191,12 @@ bower install jasmine-as-promised
 
 And Bower will also auto-install the `Jasmine` library for you; as part of this library install.
 
+
+## How Does This Work!?
+
+While this approach using the interceptor or *head hook* approach, it should be note that this is hack... albeit a reasonable one.
+Note that **Jasmine-as-Promised** just overrides the `window.runs` method (published as part of Jasmine core); check the source for more details.
+
 ## Using with AngularJS
 
 When using AngularJS with Jasmine Specs (and Jasmine-as-Promised ), developers have two (2) types of test scenarios:
@@ -198,16 +204,13 @@ When using AngularJS with Jasmine Specs (and Jasmine-as-Promised ), developers h
 *  Testing with [angular-mocks](https://github.com/angular/bower-angular-mocks) to use mock $http and mock $timeout(s).
 *  Testing with [angular-spec]() to use Jasmine tests with LIVE $http (real XHR) calls.
 
-Developers should study the test Spec prepared withing [test_withAngular.html](https://github.com/Mindspace/jasmine-as-promised/blob/master/test/test_withAngular.html). 
-That shows how  
+Developers should study the test **Specs** prepared within [test_withAngular.html](https://github.com/Mindspace/jasmine-as-promised/blob/master/test/test_withAngular.html). 
+That file shows you how:
 
-*  script libraries should be loaded, 
+*  script libraries should be loaded (for tests)
 *  Jasmine should be started
 *  angular services can be constructed with mock APIs
 *  Spec(s) can be implemented using `inject( )` and `runs( )`
 *  Angular Promise-based services can be easily tested.
 
-## How Does This Work!?
-
-While this approach using the interceptor or *head hook* approach, it should be note that this is hack... albeit a reasonable one.
-Note that **Jasmine-as-Promised** just overrides the `Jasmine.Spec.prototype.runs` method; check the source for more details.
+Developers should note that these do NOT show how RequireJS can also be used… that is out-of-scope for this project.
