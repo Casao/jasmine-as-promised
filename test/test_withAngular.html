@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Jasmine as Promised Tests</title>
+    <title>Jasmine-as-Promised Tests with AngularJS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="./bower_components/jasmine/lib/jasmine-core/jasmine.css" />
 </head>
@@ -81,14 +81,14 @@
 
             /**
              * Build AngularJS app useful for testing purposes
-             * Set dependency on Angular-mocks: to use $timeout.flush() extensions for mocks
+             * Set dependency on Angular-mocks: to use $browser.flush() extensions for mocks
              */
             angular.module( TEST_APP, [ 'ngMock' ]  )
                    .service( "authenticator", function( $q )
                    {
                        var validateWith = function( future )
                            {
-                              return function ( userName )
+                              return function validateUserName( userName )
                               {
                                    var dfd      = future.defer(),
                                        response = {
@@ -104,6 +104,9 @@
                               };
                            };
 
+                       /**
+                        * Authenticator is a service with mock APIs (using $q)
+                        */
                        return {
                            validateUser  : validateWith( $q ),      // Using AngularJS $q
                            validateUserQ : validateWith( Q )        // Using Q.js
@@ -123,7 +126,7 @@
                     runs( function()
                     {
                         return authenticator
-                                .validateUser( VALID_USER )    // Has internal flush on delay
+                                .validateUser( VALID_USER )
                                 .then( function(response)
                                 {
                                     expect( response.success ) .toBeTruthy();
