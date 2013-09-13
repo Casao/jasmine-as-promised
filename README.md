@@ -215,4 +215,8 @@ That file shows you how:
 *  Spec(s) can be implemented using `inject( )` and `runs( )`
 *  Angular Promise-based services can be easily tested.
 
-Developers should note that these do NOT show how RequireJS can also be used… that is out-of-scope for this project.
+
+### Using RequireJS
+
+Developers should note that these do NOT show how RequireJS can also be used… that is out-of-scope for this project. 
+If you really need to know how to use RequireJS with your tests and Karma, contact me or come and see me at the 2014 NG-Conference
