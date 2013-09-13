@@ -6,7 +6,7 @@ support in [Jasmine](https://github.com/pivotal/jasmine) for the promise-returni
 This library provides an extension of the Jasmine `Spec::runs()` to support Promises 
 and will auto-magically wait for the promise to resolve or reject before continuing with subsequent unit tests.
 
-Best of all... it supports AngularJS and will signficantly reduce the size of your test code (see bottom).
+Best of all... it supports **AngularJS** and will signficantly reduce the size of your test code (see bottom).
 
 ## The Old Way
 
