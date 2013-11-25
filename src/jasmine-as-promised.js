@@ -158,7 +158,7 @@
 
                     runs.call( this, function()
                     {
-                        var retVal = runFn.call();
+                        var retVal = runFn.call(this);
 
                         if ( isPromise(retVal) )
                         {
