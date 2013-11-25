@@ -45,12 +45,10 @@
  *
  * @date September, 2013
  *
- *
  */
+/* jshint eqnull:true, boss:true */
 (function (jasmineAsPromised) {
     "use strict";
-
-    function isDefined(value)   { return typeof value != 'undefined'; }
 
     function findNodeJSTarget(moduleToTest, suffix)
     {
@@ -87,12 +85,12 @@
                     var suffix = path.join("jasmine", "lib", "jasmine.js");
                     target = findNodeJSTarget(require.main, suffix);
 
-                    if ( !isDefined(target) ) {
+                    if ( target == null ) {
                         throw new Error("Attempted to automatically plug in to Jasmine, but could not detect a " +
                             "running Jasmine module.");
                     }
 
-                } else if ( isDefined(jasmine) ) {
+                } else if ( typeof jasmine !== 'undefined' && jasmine !== null ) {
                     // We're in a browserify-like emulation environment. Try the `jasmine` global.
                     target = jasmine;
                 } else {
@@ -104,7 +102,7 @@
             jasmineAsPromised(target);
         };
 
-    } else if (typeof define === "function" && define.amd && !isDefined(jasmine) ) {
+    } else if (typeof define === "function" && define.amd && (typeof jasmine === 'undefined' || jasmine === null) ) {
         // AMD
         define(function () {
             return jasmineAsPromised;
@@ -124,22 +122,12 @@
              */
             isPromise = function( x )
             {
-                return typeof x === "object" && x !== null && typeof x.then === "function";
-            },
-
-            /**
-             * Assert value is NOT undefined
-             */
-            isDefined = function( value )
-            {
-                return typeof value != 'undefined';
+                return x != null && x.then && typeof x.then === "function";
             };
-
 
         return function jasmineAsPromised(jasmine)
         {
-            if ( duckPunchedAlready )    { return; }
-            if ( !isDefined(jasmine) )   { return; }
+            if ( jasmine == null || duckPunchedAlready ) { return; }
 
             duckPunchedAlready = true;
 
@@ -179,7 +167,7 @@
                              * pending promise handlers ?
                              */
 
-                            if ( isDefined( inject ))
+                            if ( typeof inject !== "undefined" && inject !== null )
                             {
                                 inject( function( $browser )
                                 {
@@ -219,7 +207,7 @@
 
                     runs.call( this, function()
                     {
-                        if ( isDefined( expectFn ) )
+                        if ( expectFn != null )
                         {
                             // Forward promise response/fault to expectFn handler (if desired)
 
@@ -231,7 +219,7 @@
 
             // Intercept global to support expectFn arguments
 
-            if ( isDefined(window) )
+            if ( window.runs )
             {
                 window.runs = function( runFn, expectFn, timeOut )
                 {
