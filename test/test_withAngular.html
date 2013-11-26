@@ -113,6 +113,13 @@
                        };
                    });
 
+            /**
+             *
+             * Here we use runs( function():PROMISE ) with a functions that RETURN promises.
+             * Jasmine-as-Promised will internally manage flushing the pending promise queues so
+             * your expect()s are called properly.
+             *
+             */
 
             describe( "`runs( promise )` tests ", function ()
             {
@@ -185,6 +192,12 @@
 
             });
 
+            /**
+             *
+             * Note how the versions that only use runs( ) without promises is responsible for
+             * MANUALLY flushing the AngularJS $q, $timeout, $httpBackend promise queues
+             *
+             */
 
             describe( "`runs( function(){} )` tests ", function ()
             {
@@ -196,10 +209,10 @@
 
                 it( "should pass with $q and $browser.flush() if given valid user", inject(function( authenticator, $browser )
                 {
-                    // Test Jasmine runs() when NO Promise is returned
-
                     runs( function()
                     {
+                        // Test Jasmine runs() when a Promise is NOT returned
+
                         authenticator
                                 .validateUser( VALID_USER )    // Has internal flush on delay
                                 .then( function(response)
