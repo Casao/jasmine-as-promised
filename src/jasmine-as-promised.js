@@ -116,7 +116,7 @@
         {
             var response = null,
                 runs     = jasmine ? jasmine.Spec.prototype.runs     : null,
-                waitsFor = jasmine ? jasmine.Spec.prototype.waitsFor : null;
+                waitsFor = jasmine ? jasmine.Spec.prototype.waitsFor : null,
 
             /**
              * runs() Interceptor to support promise arguments (instead of functions())
@@ -152,7 +152,7 @@
                          * pending promise handlers ?
                          */
 
-                        if ( isDefined( inject ))
+                        if ( isDefined( window.inject ))
                         {
                             inject( function( $browser )
                             {
@@ -226,7 +226,7 @@
     // Module systems magic dance.
     // *******************************
 
-    if ( isFunction(require) && isObject(exports) && isObject(module) )
+    if ( typeof require === "function" && typeof exports === "object" && typeof module === "object" )
     {
         // Node.js: plug in automatically, if no argument is provided. This is a good idea since one can run Jasmine tests
         // using the Jasmine test runner from either a locally-installed package, or from a globally-installed one.
