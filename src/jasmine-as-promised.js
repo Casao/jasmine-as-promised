@@ -197,7 +197,7 @@
                     {
                         // Forward promise response/fault to expectFn handler (if desired)
 
-                        expectFn.call( this, (expectFn.length == 1) ? [ response ] : [ ] );
+                        expectFn.apply( this, (expectFn.length == 1) ? [ response ] : [ ] );
                     }
                 });
             };
