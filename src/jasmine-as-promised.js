@@ -154,14 +154,16 @@
 
                         if ( isDefined( window.inject ))
                         {
-                            inject( function( $browser )
+                            inject( function( $browser, $httpBackend )
                             {
                                 retVal.then( onReleaseWait, onReleaseWait );
 
                                 try {
+                                    $httpBackend.flush();
+                                } catch ( e ) { }
 
+                                try {
                                     $browser.defer.flush();
-
                                 } catch( e ) {  }
                             });
 
